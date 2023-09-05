@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="scripts/misfuncionesapp.js"></script>
+    <link rel="stylesheet", href="CSS/estilos.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script>
+        function generarRFC() {
+            var nombre = document.getElementById('nombre').value.toUpperCase();
+            var appat = document.getElementById('appat').value.toUpperCase();
+            var apmat = document.getElementById('apmat').value.toUpperCase();
+            var fecha = document.getElementById('fecha').value;
+
+            // OBTENER LAS LETRAS SEGUN LO INGRESADO
+            var primeraLetraNombre = nombre.charAt(0);
+            var primeraLetraAppat = appat.charAt(0);
+            var segundaLetraAppat = appat.charAt(1);
+            var primeraLetraApmat = apmat.charAt(0);
+
+            // Obtener año, los últimos 2 numeros
+            var yearNacimiento = fecha.substr(2, 2);
+            var mesNacimiento = fecha.substr(5, 2);
+            var diaNacimiento = fecha.substr(8, 2);
+
+            // Guardar y mandar a una cadena al campo rfc
+            var rfcGenerado = primeraLetraAppat + segundaLetraAppat + primeraLetraApmat + primeraLetraNombre + yearNacimiento + mesNacimiento + diaNacimiento;
+            document.getElementById('rfc').value = rfcGenerado;
+        }
+
+        // asignacion de funciones de acuerdo a la accion de los botones
+        document.addEventListener('DOMContentLoaded', function () {
+            //document.getElementById('btnGenerarRFC').addEventListener('click', generarRFC);
+            document.getElementById('btnConsultarApi').addEventListener('click', consultarAPI);
+        });
+    </script>
+
+</head>
+
+<body>
+
+    <br>
+    <h1>PRACTICA 2 -RFC</h1>
+
+    <label>NOMBRE: </label>
+    <input name="nombre" id="nombre" type="text" placeholder="Ingresa tu nombre" />
+    <br>
+    <label>APELLIDO PAT: </label>
+    <input name="appat" id="appat" type="text" placeholder="Ingresa tu apellido paterno" />
+    <br>
+    <label>APELLIDO MAT: </label>
+    <input name="apmat" id="apmat" type="text" placeholder="Ingresa tu apellido materno" />
+    <br>
+    <label>FECHA NACIMIENTO: </label>
+    <input name="fecha" id="fecha" type="date" />
+    <br>
+    <button id="btnGenerarRFC">GENERAR UN RFC</button>
+    <br>
+    <label>RFC: </label>
+    <br>
+    <input name="rfc" id="rfc" type="text" readonly />
+
+    <br>
+    <br>
+    <h2>AJAX - API REST</h2>
+
+
+    <br>
+    <button id="btnConsultarApi">CONSULTAR API REST</button>
+    <label>ID: </label>
+    <input name="id" id="id" placeholder="ingrese un id"/>
+    <br>
+    <label>NOMBRE: </label>
+    <input name="nombre2" id="nombre2" readonly/>
+    <br>
+    <label>EMAIL: </label>
+    <input name="email" id="email" readonly/>
+</body>
+
+</html>

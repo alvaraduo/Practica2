@@ -15,25 +15,36 @@
             var apmat = document.getElementById('apmat').value.toUpperCase();
             var fecha = document.getElementById('fecha').value;
 
-            // OBTENER LAS LETRAS SEGUN LO INGRESADO
-            var primeraLetraNombre = nombre.charAt(0);
-            var primeraLetraAppat = appat.charAt(0);
-            var segundaLetraAppat = appat.charAt(1);
-            var primeraLetraApmat = apmat.charAt(0);
+            // se optiene las letras en lo que se ingreso en los input
+            var priLNombre = nombre.charAt(0);
+            var priLAppat = appat.charAt(0);
+            var segLAppat = appat.charAt(1);
+            var priLApmat = apmat.charAt(0);
 
             // Obtener año, los últimos 2 numeros
-            var yearNacimiento = fecha.substr(2, 2);
+            var anioNacimiento = fecha.substr(2, 2);
             var mesNacimiento = fecha.substr(5, 2);
             var diaNacimiento = fecha.substr(8, 2);
 
             // Guardar y mandar a una cadena al campo rfc
-            var rfcGenerado = primeraLetraAppat + segundaLetraAppat + primeraLetraApmat + primeraLetraNombre + yearNacimiento + mesNacimiento + diaNacimiento;
+            var rfcGenerado = priLAppat + segLAppat + priLApmat + priLNombre + anioNacimiento + mesNacimiento + diaNacimiento;
             document.getElementById('rfc').value = rfcGenerado;
+        }
+
+        function consultarAPI() {
+            var id = document.getElementById('id').value;
+
+            // se realiza una solicitud a la url de la api con el get, para buscar de acuerdoal id ingresado
+            $.get("https://jsonplaceholder.typicode.com/users/" + id, function (data) {
+                // Asignar valores a los campos nombre2 y email
+                $("#nombre2").val(data.name);
+                $("#email").val(data.email);
+            });
         }
 
         // asignacion de funciones de acuerdo a la accion de los botones
         document.addEventListener('DOMContentLoaded', function () {
-            //document.getElementById('btnGenerarRFC').addEventListener('click', generarRFC);
+            document.getElementById('btnGenerarRFC').addEventListener('click', generarRFC);
             document.getElementById('btnConsultarApi').addEventListener('click', consultarAPI);
         });
     </script>
@@ -64,11 +75,8 @@
     <input name="rfc" id="rfc" type="text" readonly />
 
     <br>
-    <br>
     <h2>AJAX - API REST</h2>
 
-
-    <br>
     <button id="btnConsultarApi">CONSULTAR API REST</button>
     <label>ID: </label>
     <input name="id" id="id" placeholder="ingrese un id"/>
